@@ -1,0 +1,199 @@
+.Wrapper_Register_Form {
+    height: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+}
+
+.Register_Form {
+    width: 25%;
+    height: 500px;
+    background-color: steelblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 10px;
+}
+
+.Register_Page {
+    position: relative;
+    width: 50%;
+    height: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1024px) {
+    .Register_Page {
+        width: 438px;
+    }
+}
+
+.Wrapper_Login_Form {
+    height: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Register_Form {
+    position: absolute;
+    right: 10px;
+    width: 45%;
+    height: 500px;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px 5px dimgray;
+}
+
+@media screen and (max-width: 1150px) {
+    .Register_Form {
+        top: 35%;
+        width: 65%;
+        right: auto;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .Register_Form {
+        width: 300px;
+    }
+}
+
+.Register_Inform {
+    position: relative;
+    display: flex;
+    background-color: fuchsia;
+    flex-direction: column;
+    justify-content: left;
+    width: 100%;
+    height: 40%;
+    font-size: 35px;
+    color: white;
+    background-image: url("../../../../asets/image/solen-feyissa-wadfHyE6cqk-unsplash.jpg");
+    background-size: 100%;
+}
+
+@media screen and (max-width: 1150px) {
+    .Register_Inform {
+        height: 80%;
+        background-size: cover;
+    }
+}
+
+.Register_Content {
+
+    width: 50%;
+    font-size: calc(17px + 18 * (100vw / 1280));
+    margin-left: 25px;
+}
+
+@media screen and (max-width: 1150px) {
+    .Register_Content {
+        margin-left: 0;
+        width: 100%;
+        font-size: 30px;
+    }
+}
+
+.Register_Input {
+    width: 50%;
+    border: none;
+    border-bottom: solid 1px fuchsia;
+    outline: none;
+    background-color: whitesmoke;
+    font-size: 20px;
+}
+
+.Register_Button {
+    width: 100px;
+    height: 40px;
+    border-color: fuchsia;
+    outline: none;
+    color: fuchsia;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.Register_Button:hover {
+    background-color: fuchsia;
+    color: white;
+    border: none;
+}
+
+.Login_path {
+    position: absolute;
+    top: 80%;
+    left: 20%;
+    width: 20%;
+    color: white;
+    border: solid 2px;
+    font-size: calc(10px + 15 * (100vw / 1280));
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1150px) {
+    .Login_path {
+        top: 19%;
+        left: 39%;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .Login_path {
+        font-size: calc(10px + 10 * (100vw / 1280));;
+    }
+}
+
+.Login_path:hover {
+    background-color: white;
+    color: fuchsia;
+    border: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.Register_Content_Inform {
+    top: 35%;
+    left: 9%;
+    position: absolute;
+    width: 40%;
+    font-size: calc(17px + 15 * (100vw / 1280));
+}
+
+@media screen and (max-width: 1150px) {
+    .Register_Content_Inform {
+        width: 100%;
+        top: 5%;
+        left: 0;
+        font-size: 27px;
+    }
+}
+
+.Error_Register_Email {
+    color: red;
+    top: 62%;
+    position: absolute;
+}
+
+.Error_Register_Password {
+    color: red;
+    position: absolute;
+    top: 42%
+}
+
+.Error_UserName {
+    color: red;
+    position: absolute;
+    top: 21%
+}

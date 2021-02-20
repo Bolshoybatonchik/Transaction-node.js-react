@@ -1,0 +1,3 @@
+export const SET_TRANSACTION_DATA = 'SET_TRANSACTION_DATA'
+export const SET_USERS_LIST= 'SET_USERS_LIST'
+export const GET_ERROR= 'GET_ERROR'
