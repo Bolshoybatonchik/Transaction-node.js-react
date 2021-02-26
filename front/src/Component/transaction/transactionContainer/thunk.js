@@ -1,12 +1,12 @@
 import axios from '../../../axios/axios';
 import { getError, setListUsers, setTransactionData } from "./actions";
-import { configureStore } from "@reduxjs/toolkit";
+
 
 
 export const createTransaction = ({name, amount, recipientId, correspondentId}) => async (dispatch) => {
     try {
-        console.log('@@@createTransaction===== =>>>33333', recipientId, correspondentId,name, amount)
         const response = await axios.post('protected/transactions', {name, amount, recipientId, correspondentId});
+ console.log('createTransaction====+>>>>(9999',response.data);
         dispatch(
             getError(false)
         )
@@ -35,6 +35,3 @@ export const getListUsers = (text) => async (dispatch) => {
         setListUsers(response.data),
     );
 };
-// getListUsers /api
-// getAllTransactions/api
-// createTransaction/api

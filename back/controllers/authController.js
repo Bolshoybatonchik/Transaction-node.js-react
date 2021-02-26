@@ -26,8 +26,7 @@ module.exports = {
                 })
                 return
             }
-            const isComparePassword = await checkHashPassword(password, candidate.password)
-
+            const isComparePassword = await checkHashPassword(password, candidate.password);
             if (isComparePassword) {
                 const token = createToken({
                     email: candidate.email,
