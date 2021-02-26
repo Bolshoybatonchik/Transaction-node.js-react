@@ -4,10 +4,11 @@ import MoneyTransactionContainer from "../../../transaction/transactionContainer
 
 
 const UsersCabinet = (props) => {
-    const {user, logoutUser, getUserInfoData,} = props;
+    const {user, onClick, getUserInfoData } = props;
+
     return (<>
             <div className={"User_Page"}>
-                <div className={"Cap"}></div>
+                <div className={"Cap"}/>
                 <div className={"Wrapper_heading"}><h1 className={"heading"}>KONG TRANSACTION</h1>
                     <h2>fast and convenient translation application</h2></div>
                 <div className={"UsersCabinet"}>
@@ -16,11 +17,11 @@ const UsersCabinet = (props) => {
                         <div>Email: {user.email}</div>
                         <div>Balance:{user.balance} </div>
                         <div className={"Logout_Button_Wrapper"}>
-                            <button className={"Logout_Button"} onClick={logoutUser}>
-                                <span className={"button_line button_line_top"}></span>
-                                <span className={"button_line button_line_left"}></span>
-                                <span className={"button_line button_line_right"}></span>
-                                <span className={"button_line button_line_bottom"}></span>
+                            <button className={"Logout_Button"} onClick={onClick}>
+                                <span className={"button_line button_line_top"}/>
+                                <span className={"button_line button_line_left"}/>
+                                <span className={"button_line button_line_right"}/>
+                                <span className={"button_line button_line_bottom"}/>
                                 Logout
                             </button>
                         </div>
@@ -30,6 +31,6 @@ const UsersCabinet = (props) => {
             </div>
         </>
     )
-}
+};
 
-export default UsersCabinet;
+export default React.memo(UsersCabinet);

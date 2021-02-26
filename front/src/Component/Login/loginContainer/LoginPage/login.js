@@ -5,10 +5,12 @@ import { NavLink } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { getToken } from "../../../../localStoreg/localStoreg";
 import * as Yup from 'yup';
+import { useSelector } from "react-redux";
 
 const LoginForm = (props) => {
-    const {Auth, loginUsers, getUserInfoData} = props;
-    const [loginError,setLoginError] = useState(false)
+    const { loginUsers } = props;
+    const loginError = useSelector((state) => state.auth.user);
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -25,27 +27,17 @@ const LoginForm = (props) => {
     const email = formik.values.email;
     const password = formik.values.password;
 
-    const getLoginError = () => {
-        if (!Auth) {
-            setLoginError(true)
-        }
-    }
+    // const getLoginError = () => {
+    //         setLoginError(true)
+    // }
 
     const onClickButtonLogin = async () => {
         if (email && password && !formik.errors.password) {
-            await loginUsers(email, password);
-            await getLoginError();
-            await getUserInfoData()
+            loginUsers(email, password);
+            // getLoginError();
         }
     }
-    useEffect(() => {
-        if (getToken()) {
-            return <Redirect to={"/"}/>
-        }
-    }, []);
-    if (Auth) {
-        return <Redirect to={"/"}/>
-    }
+
     return (
         <div className={"Wrapper_Login_Form"}>
             <div className={"Login_page"}>

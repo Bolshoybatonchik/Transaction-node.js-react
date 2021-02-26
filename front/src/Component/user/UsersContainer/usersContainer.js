@@ -1,39 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import UsersCabinet from "./userCabinet/usersCabinet";
-import { connect } from "react-redux";
-import { logoutUser } from "../../Logout/thunk";
-import { getToken } from "../../../localStoreg/localStoreg";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserInfoData } from "./thunk";
-import { useHistory } from "react-router-dom";
+import { logoutUser } from '../../Logout/thunk';
 
+const UsersContainer = () => {
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user.user);
 
-const UsersContainer = (props) => {
-    let history = useHistory();
+    const handleClick = useCallback(() => {
+        dispatch(logoutUser())
+    }, [])
+
+    const getUserInfo = useCallback(() => {
+        dispatch(getUserInfoData())
+    }, [])
+
     useEffect(() => {
-        const Effects = async () => {
-            if (getToken()) {
-                await props.getUserInfoData();
-            }
-            if (!props.Auth) {
-                await history.push("/login")
-            }
-            ;
-        }
-        Effects();
-    }, [props.Auth]);
-    return (<UsersCabinet logoutUser={props.logoutUser} Auth={props.Auth} user={props.user}/>)
-}
+        dispatch(getUserInfoData());
+    }, []);
 
-const mapStateToProps = (state) => {
-    return {
-        Auth: state.auth.isAuth,
-        user: state.user.user,
-    };
-}
+    return (<UsersCabinet user={user} onClick={handleClick} getUserInfoData={getUserInfo}/>)
+};
 
-const mapDispatchToProps = ({
-    logoutUser,
-    getUserInfoData
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default React.memo(UsersContainer)

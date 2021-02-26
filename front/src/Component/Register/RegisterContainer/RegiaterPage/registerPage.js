@@ -7,7 +7,7 @@ import { getToken } from "../../../../localStoreg/localStoreg";
 
 
 const RegisterPage = (props) => {
-    const {getUserInfoData, Auth, registerUser} = props;
+    const {getUserInfoData, registerUser} = props;
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -38,17 +38,10 @@ const RegisterPage = (props) => {
                 email: email,
             }
             await registerUser(result);
-            await getUserInfoData();
+            getUserInfoData();
         }
     }
-    useEffect(() => {
-        if (getToken()) {
-            return <Redirect to={"/"}/>
-        }
-    }, []);
-    if (Auth) {
-        return <Redirect to={"/"}/>
-    }
+
     return (
         <div className={"Wrapper_Register_Form"}>
             <div className={"Register_Page"}>

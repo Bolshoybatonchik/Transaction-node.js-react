@@ -1,5 +1,6 @@
+import React from "react";
 import './App.css';
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import {Redirect ,Route, BrowserRouter, Switch } from "react-router-dom";
 import UsersContainer from "./Component/user/UsersContainer/usersContainer";
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
@@ -7,10 +8,25 @@ import reducer from "./store/Reducer/reducer";
 import { Provider } from "react-redux";
 import LoginContainer from "./Component/Login/loginContainer/loginContainer";
 import RegisterContainer from "./Component/Register/RegisterContainer/registerContainer";
-import React from "react";
-
+import { getToken } from "./localStoreg/localStoreg";
 
 const store = createStore(reducer, applyMiddleware(thunk));
+
+const renderPrivateRoute = (Component) => (params)  => {
+    const token = getToken();
+    if(token) {
+        return <Component {...params}/>
+    }
+    return <Redirect to='/login'/>
+}
+
+const renderPublicRoute = (Component) => (params)  => {
+    const token = getToken();
+    if(!token) {
+        return <Component {...params}/>
+    }
+    return <Redirect to='/'/>
+}
 
 function App() {
     return (
@@ -18,9 +34,9 @@ function App() {
             <BrowserRouter>
                 <div className="App">
                     <Switch>
-                        <Route path={'/login'} component={LoginContainer}/>
-                        <Route path={'/register'} component={RegisterContainer}/>
-                        <Route path={'/'} component={UsersContainer}/>
+                        <Route path='/login' exact render={renderPublicRoute(LoginContainer)}/>
+                        <Route path='/register' exact render={renderPublicRoute(RegisterContainer)}/>
+                        <Route path='/' exact render={renderPrivateRoute(UsersContainer)}/>
                     </Switch>
                 </div>
             </BrowserRouter>

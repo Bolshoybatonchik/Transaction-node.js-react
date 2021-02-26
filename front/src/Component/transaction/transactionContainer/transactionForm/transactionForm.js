@@ -2,10 +2,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import './transactionForm.css'
 import Menu from "../../../Menu/menu";
 import { TransactionError } from "./transactionError/transactionError";
+import TransactionList from "./transactonList/transactionList";
 
 
 const MoneyTransaction = (props) => {
-    const {getUserInfoData, getAllTransactions, transactionList, getListUsers, usersList, balance, createTransaction, transactionError, correspondentId} = props;
+    const {
+        getUserInfoData, getAllTransactions, transactionList,
+        getListUsers, usersList, balance,
+        createTransaction, transactionError, correspondentId
+    } = props;
     const [amount, setAmount] = useState();
     const [name, setName] = useState();
     const [showModal, setShowModal] = useState(false);
@@ -35,7 +40,7 @@ const MoneyTransaction = (props) => {
 
     useEffect(() => {
         setButtonState();
-    }, [amount, name,recipientId]);
+    }, [amount, name, recipientId]);
 
     useEffect(
         () => {
@@ -44,14 +49,14 @@ const MoneyTransaction = (props) => {
 
     const requestTransaction = async (data) => {
         await createTransaction(data);
-        await getUserInfoData();
+        getUserInfoData();
         await getAllTransactions();
     }
 
     const onRetry = async (item, isRetry, correspondentId) => {
         const {recipient_id, amount, name} = item;
         const datas = {
-            recipientId:recipient_id,
+            recipientId: recipient_id,
             amount,
             name,
             correspondentId
@@ -113,21 +118,22 @@ const MoneyTransaction = (props) => {
                         onClick={() => requestTransaction(dataTransaction)}>AMOUNT NOW
                 </button>
             </div>
-            <div className="Transaction_Item_Wrapper">
-                {transactionList.map(item => (
-                    <div className={"Transaction_Item"} key={item.id}>
-                        <div className={"Transaction_Image"}></div>
-                        <label className="p" htmlFor={item.id}>
-                            <div>Correspondent Name:{item.name}</div>
-                            <div>Date/Time of the transaction:{item.date}</div>
-                            <div>Transaction amount, (Debit/Credit for PW transferred):{item.amount}</div>
-                            <div>Balance:{item.balance}</div>
-                        </label>
-                        <button className={"Transaction_Retry"}
-                                onClick={() => onRetry(item, true, correspondentId)}> RETRY
-                        </button>
-                    </div>
-                ))}</div>
+            {/*<div className="Transaction_Item_Wrapper">*/}
+            {/*    {transactionList.map(item => (*/}
+            {/*        <div className={"Transaction_Item"} key={item.id}>*/}
+            {/*            <div className={"Transaction_Image"}></div>*/}
+            {/*            <label className="p" htmlFor={item.id}>*/}
+            {/*                <div>Correspondent Name:{item.name}</div>*/}
+            {/*                <div>Date/Time of the transaction:{item.date}</div>*/}
+            {/*                <div>Transaction amount, (Debit/Credit for PW transferred):{item.amount}</div>*/}
+            {/*                <div>Balance:{item.balance}</div>*/}
+            {/*            </label>*/}
+            {/*            <button className={"Transaction_Retry"}*/}
+            {/*                    onClick={() => onRetry(item, true, correspondentId)}> RETRY*/}
+            {/*            </button>*/}
+            {/*        </div>*/}
+            {/*    ))}</div>*/}
+            <TransactionList transactionList={transactionList} correspondentId={correspondentId} onRetry={onRetry}/>
         </div>
     )
 }

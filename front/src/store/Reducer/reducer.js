@@ -4,10 +4,9 @@ import { authReducer } from "./authReducer";
 import { userReducer } from "../../Component/user/UsersContainer/reducer";
 import { TransactionReducer } from "../../Component/transaction/transactionContainer/reducer";
 
-let reducer = combineReducers({
+export default combineReducers({
     login: loginReducer,
     auth: authReducer,
     user: userReducer,
     transaction: TransactionReducer
 })
-export default reducer;

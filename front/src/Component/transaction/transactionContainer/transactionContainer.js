@@ -8,16 +8,20 @@ import { getUserInfoData } from "../../user/UsersContainer/thunk";
 const MoneyTransactionContainer = (props) => {
     return (
         <MoneyTransaction
-            getAllTransactions={props.getAllTransactions} getUserInfoData={props.getUserInfoData}
-            transactionList={props.transactionList} getListUsers={props.getListUsers} usersList={props.usersList}
-            balance={props.balance} createTransaction={props.createTransaction} transactionError={props.transactionError}
+            getAllTransactions={props.getAllTransactions}
+            getUserInfoData={props.getUserInfoData}
+            transactionList={props.transactionList}
+            getListUsers={props.getListUsers}
+            usersList={props.usersList}
+            balance={props.balance}
+            createTransaction={props.createTransaction}
+            transactionError={props.transactionError}
             correspondentId={props.correspondentId}
         />
     )
 }
 
 const mapStateToProps = (state) => {
- console.log('MoneyTransactionContainer==========>>>>>>>>>',state.transaction)
     return {
         correspondentId: state.user.user.id,
         transactionError:state.transaction.transactionError,

@@ -6,14 +6,14 @@ import { getUserInfoData } from "../../user/UsersContainer/thunk";
 import { getToken } from "../../../localStoreg/localStoreg";
 
 const LoginContainer = (props) => {
-    useEffect(() => {
-        if (getToken()) {
-            props.getUserInfoData();
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (getToken()) {
+    //         props.getUserInfoData();
+    //     }
+    // }, []);
     return (
         <LoginForm
-            Auth={props.Auth}
+            // Auth={props.Auth}
             loginUsers={props.loginUsers}
             getUserInfoData={props.getUserInfoData}/>
     )

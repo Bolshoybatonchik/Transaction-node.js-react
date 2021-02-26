@@ -5,6 +5,8 @@ import { USER_AUTH } from "../../Component/user/UsersContainer/actionType";
 
 const defaultState = {
     isAuth: false,
+    isError: false,
+    loginError: ''
 }
 
 export const authReducer = (state = defaultState, action) => {
