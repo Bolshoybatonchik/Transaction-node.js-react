@@ -5,7 +5,7 @@ import { TransactionError } from "./transactionError/transactionError";
 
 
 const MoneyTransaction = (props) => {
-    const {getUserInfoData, getAllTransactions, transactionList, getListUsers, usersList, balance, createTransaction, transactionError, correspondentId} = props
+    const {getUserInfoData, getAllTransactions, transactionList, getListUsers, usersList, balance, createTransaction, transactionError, correspondentId} = props;
     const [amount, setAmount] = useState();
     const [name, setName] = useState();
     const [showModal, setShowModal] = useState(false);
@@ -14,7 +14,7 @@ const MoneyTransaction = (props) => {
         setRecipientId(id)
     }
 
-    const dateTransaction = {
+    const dataTransaction = {
         name,
         amount,
         recipientId,
@@ -24,18 +24,18 @@ const MoneyTransaction = (props) => {
     const SendingAmount = (event) => {
         setAmount(event.target.value);
     }
-
     const SearchRecipient = async (event) => {
         if (!showModal) {
             setShowModal(true)
         }
+        RecipientId(null);
         await setName(event.target.value);
         await getListUsers1(event.target.value);
     }
 
     useEffect(() => {
         setButtonState();
-    }, [amount, name]);
+    }, [amount, name,recipientId]);
 
     useEffect(
         () => {
@@ -48,18 +48,16 @@ const MoneyTransaction = (props) => {
         await getAllTransactions();
     }
 
-    const onRetry = async (data, isRetry, correspondentId) => {
-        const {recipient_id, amount, name} = data;
-        console.log('onRetry======>>>>>>111', data)
-       const datas = {
-            recipient_id,
+    const onRetry = async (item, isRetry, correspondentId) => {
+        const {recipient_id, amount, name} = item;
+        const datas = {
+            recipientId:recipient_id,
             amount,
             name,
             correspondentId
         }
         await requestTransaction(datas);
     };
-
 
     // const onRetry = async (data, isRetry) => {
     //     const {recipient_id, amount, name} = data;
@@ -69,6 +67,7 @@ const MoneyTransaction = (props) => {
     //     await setAmount(amount);
     //     await requestTransaction();
     // };
+
     const getListUsers1 = (b) => {
         const text = b;
         getListUsers(text);
@@ -81,6 +80,9 @@ const MoneyTransaction = (props) => {
 
     const setButtonState = () => {
         if (!name) {
+            return true
+        }
+        if (!recipientId) {
             return true
         }
         if (!amount) {
@@ -99,6 +101,7 @@ const MoneyTransaction = (props) => {
             return "Transaction_Bt"
         }
     }
+
     return (<div className={"Transaction_Page"}>
             <div className={"Transaction_Form"}>
                 <TransactionError transactionError={transactionError}/>
@@ -106,7 +109,8 @@ const MoneyTransaction = (props) => {
                       usersList={usersList} RecipientId={RecipientId}/>
                 <input className={"Transaction_Input"} placeholder="Sum" type="number" onChange={SendingAmount}
                        value={amount}/>
-                <button className={ClassButton()} disabled={setButtonState()} onClick={()=> requestTransaction(dateTransaction)}>AMOUNT NOW
+                <button className={ClassButton()} disabled={setButtonState()}
+                        onClick={() => requestTransaction(dataTransaction)}>AMOUNT NOW
                 </button>
             </div>
             <div className="Transaction_Item_Wrapper">

@@ -18,8 +18,6 @@ const createUserService = async (req, res) => {
             const token = createToken({
                 userId: result.id,
                 email: result.email,
-                // name:result.username,
-                // balance:result.balance,
             })
             res.status(200).json({
                 id_token: `${token}`

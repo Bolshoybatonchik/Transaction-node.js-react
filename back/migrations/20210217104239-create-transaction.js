@@ -18,6 +18,10 @@ module.exports = {
       amount: {
         type: Sequelize.INTEGER
       },
+      oldBalance: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -8,7 +8,6 @@ const findUser = async (email) => {
         return e
     }
 }
-
 module.exports = findUser;
 
 

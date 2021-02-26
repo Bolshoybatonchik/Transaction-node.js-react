@@ -17,7 +17,7 @@ const MoneyTransactionContainer = (props) => {
 }
 
 const mapStateToProps = (state) => {
-
+ console.log('MoneyTransactionContainer==========>>>>>>>>>',state.transaction)
     return {
         correspondentId: state.user.user.id,
         transactionError:state.transaction.transactionError,
