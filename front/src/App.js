@@ -1,26 +1,18 @@
 import React from "react";
 import { Provider } from "react-redux";
 import './App.css';
-import {Redirect ,Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
 import UsersContainer from "components/user/usersContainer";
 import LoginContainer from "components/login/loginContainer";
 import RegisterContainer from "components/register/registerContainer";
 import store from "store/store";
-import {getToken} from "localStorege/localStorege";
 import renderPrivateRoute from "components/privetRoute/privetRoute";
+import renderPublicRoute from "components/publicRoute/publicRoute";
 
 
 
 
 
-const renderPublicRoute = (Component) => (params)  => {
-
-    const token = getToken();
-    if(!token) {
-        return <Component {...params}/>
-    }
-    return <Redirect to='/'/>
-}
 
 function App() {
     return (

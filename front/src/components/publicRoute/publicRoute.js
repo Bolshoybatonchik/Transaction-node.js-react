@@ -1,12 +1,13 @@
 import {Redirect} from "react-router-dom";
 import {getToken} from "localStorege/localStorege";
 
-const renderPrivateRoute = (Component) => (params)  => {
+const renderPublicRoute = (Component) => (params)  => {
+
     const token = getToken();
-    if(token) {
+    if(!token) {
         return <Component {...params}/>
     }
-    return <Redirect to='/login'/>
+    return <Redirect to='/'/>
 }
 
-export default renderPrivateRoute;
+export default renderPublicRoute;
