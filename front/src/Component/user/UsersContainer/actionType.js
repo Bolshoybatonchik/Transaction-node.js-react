@@ -1,2 +1,0 @@
-export const USER_AUTH = 'USER_AUTH'
-export const SUBMIT_USER_DATA = 'SUBMIT_USER_DATA'

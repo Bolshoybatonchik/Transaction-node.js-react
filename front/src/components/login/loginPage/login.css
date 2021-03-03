@@ -1,0 +1,181 @@
+.Login_page {
+    position: relative;
+    width: 50%;
+    height: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+@media screen and (max-width: 1024px) {
+    .Login_page {
+        width: 438px;
+    }
+}
+
+.Wrapper_Login_Form {
+    height: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+}
+
+.Login_Form {
+    position: absolute;
+    right: 10px;
+    width: 45%;
+    height: 500px;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 5px dimgray;
+}
+
+@media screen and (max-width: 1150px) {
+    .Login_Form {
+        top: 35%;
+        width: 65%;
+        right: auto;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .Login_Form {
+        width: 300px;
+    }
+}
+
+.Login_Inform {
+    position: relative;
+    display: flex;
+    background-color: darkcyan;
+    flex-direction: column;
+    justify-content: left;
+    width: 100%;
+    height: 40%;
+    font-size: 35px;
+    color: white;
+    background-image: url("../../../asets/image/pawel-czerwinski-JgWp9DNib3k-unsplash.jpg");
+}
+
+@media screen and (max-width: 1150px) {
+    .Login_Inform {
+        height: 80%;
+    }
+}
+
+
+.Login_Content {
+    width: 50%;
+    font-size: calc(17px + 18 * (100vw / 1280));
+    margin-left: 15px;
+}
+
+@media screen and (max-width: 1150px) {
+    .Login_Content {
+        margin-left: 0;
+        width: 100%;
+        font-size: 30px;
+    }
+}
+
+.Login_Input {
+    width: 50%;
+    border: none;
+    border-bottom: solid 1px darkcyan;
+    outline: none;
+    background-color: whitesmoke;
+    font-size: 20px;
+}
+
+.Login_Button {
+    width: 100px;
+    height: 40px;
+    border-color: darkcyan;
+    outline: none;
+    color: darkcyan;
+    cursor: pointer;
+}
+
+.Login_Button:hover {
+    background-color: darkcyan;
+    color: white;
+    border: none;
+}
+
+.Registration_path {
+    position: absolute;
+    top: 80%;
+    left: 20%;
+    width: 20%;
+    color: white;
+    border: solid 2px;
+    font-size: calc(10px + 15 * (100vw / 1280));
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1150px) {
+    .Registration_path {
+        top: 19%;
+        left: 39%;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .Registration_path {
+        font-size: calc(10px + 10 * (100vw / 1280));;
+    }
+}
+
+.Registration_path:hover {
+    background-color: white;
+    color: darkcyan;
+    border: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.Login_Content_Inform {
+    top: 35%;
+    left: 9%;
+    position: absolute;
+    width: 40%;
+    font-size: calc(17px + 18 * (100vw / 1280));
+}
+
+@media screen and (max-width: 1150px) {
+    .Login_Content_Inform {
+        width: 100%;
+        top: 5%;
+        left: 0;
+        font-size: 27px;
+    }
+}
+
+.Error_Email {
+    color: red;
+    top: 26%;
+    position: absolute;
+}
+
+.Error_Password {
+    color: red;
+    position: absolute;
+    top: 52%
+}
+
+.Error_Login {
+    color: red;
+    top: 10%;
+    position: absolute;
+    width: 90%;
+    height: 50px;
+}
