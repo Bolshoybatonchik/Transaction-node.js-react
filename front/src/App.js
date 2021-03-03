@@ -7,16 +7,11 @@ import LoginContainer from "components/login/loginContainer";
 import RegisterContainer from "components/register/registerContainer";
 import store from "store/store";
 import {getToken} from "localStorege/localStorege";
+import renderPrivateRoute from "components/privetRoute/privetRoute";
 
 
 
-const renderPrivateRoute = (Component) => (params)  => {
-    const token = getToken();
-    if(token) {
-        return <Component {...params}/>
-    }
-    return <Redirect to='/login'/>
-}
+
 
 const renderPublicRoute = (Component) => (params)  => {
 
