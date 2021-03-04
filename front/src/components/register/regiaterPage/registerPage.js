@@ -1,11 +1,14 @@
-import React  from 'react';
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import {NavLink} from "react-router-dom";
 import * as Yup from "yup";
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import 'components/register/regiaterPage/registerPage.css'
+import {useDispatch} from "react-redux";
+import {registerUser} from "components/register/thunk";
 
 const RegisterPage = (props) => {
-    const {getUserInfoData, registerUser} = props;
+    const dispatch = useDispatch();
+    const register  = (data) => dispatch(registerUser(data))
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -35,8 +38,7 @@ const RegisterPage = (props) => {
                 password: password,
                 email: email,
             }
-            await registerUser(result);
-            getUserInfoData();
+            register(result);
         }
     }
 
