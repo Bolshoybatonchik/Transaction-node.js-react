@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import {useFormik} from 'formik';
-import 'components/login/loginPage/login.css'
+import 'components/login/login.css'
 import {NavLink, useHistory, withRouter} from "react-router-dom";
 import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
