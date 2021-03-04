@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useFormik} from 'formik';
 import 'components/login/loginPage/login.css'
 import {NavLink, useHistory, withRouter} from "react-router-dom";
 import * as Yup from 'yup';
-import {useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import {loginUsers} from "components/login/thunk";
 
 const LoginForm = (props) => {
-    const {loginUsers} = props;
     // const loginError = useSelector((state) => state.auth.user);
     let history = useHistory();
-
+    const dispatch = useDispatch();
+    const login =(email, password) => {
+        dispatch(loginUsers(email, password))
+    }
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -32,7 +35,7 @@ const LoginForm = (props) => {
 
     const onClickButtonLogin = async () => {
         if (email && password && !formik.errors.password) {
-            loginUsers(email, password);
+            login(email, password);
             console.log(history);
             history.push('/');
             // getLoginError();
