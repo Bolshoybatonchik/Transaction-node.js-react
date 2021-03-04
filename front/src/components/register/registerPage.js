@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 import * as Yup from "yup";
 import {useFormik} from 'formik';
-import 'components/register/regiaterPage/registerPage.css'
+import 'components/register/registerPage.css'
 import {useDispatch} from "react-redux";
 import {registerUser} from "components/register/thunk";
 

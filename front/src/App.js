@@ -7,7 +7,7 @@ import LoginContainer from "components/login/loginContainer";
 import store from "store/store";
 import renderPrivateRoute from "components/privetRoute/privetRoute";
 import renderPublicRoute from "components/publicRoute/publicRoute";
-import RegisterPage from "components/register/regiaterPage/registerPage";
+import RegisterPage from "components/register/registerPage";
 
 
 function App() {
