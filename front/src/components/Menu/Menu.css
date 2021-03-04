@@ -1,7 +1,9 @@
 .-padding-4 {
     padding: 4px;
 }
-
+li {
+    list-style: none;
+}
 .m-menu {
     list-style-type: none;
     position: relative;
@@ -49,9 +51,10 @@
     padding: 4px;
     display: inline-block;
     white-space: pre;
+    height: 30px;
+    /*color: orange;*/
 }
 
-.m-menu__link:hover {
-    color: #0b3895;
-    text-decoration: none;
+.d:hover {
+    color: orange;
 }

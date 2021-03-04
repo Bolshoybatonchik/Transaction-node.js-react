@@ -1,23 +1,28 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import onClickOutside from "react-onclickoutside";
 import "./Menu.css";
-import {UsersList} from "components/user/userList/userList";
-
-
 
 const Menu = (props) => {
-    const {SearchRecipient, name, userInInput, usersList,RecipientId} = props;
+    const {onChange, name, userInInput, usersList, recipientId} = props;
     const [isOpen, setIsOpen] = useState(false);
+
     const toggle = () => setIsOpen(!isOpen);
+
     Menu.handleClickOutside = () => setIsOpen(false);
+
     return (
         <li className={isOpen ? "m-menu -active" : "m-menu "} onClick={toggle}>
-            <input type={'text'} className={"Transaction_Input"} placeholder="recipient" onChange={SearchRecipient}
+            <input type={'text'} className={"Transaction_Input"} placeholder="recipient" onChange={onChange}
                    value={name}/>
             <ul className="m-menu__list">
-                <li className="m-menu__item">
-                    <div className="m-menu__link"><UsersList userInInput={userInInput} usersList={usersList} RecipientId={RecipientId}/></div>
-                </li>
+                {usersList.map(item => (
+                    <li className={"m-menu__link"} key={item.id}>
+                        <div className={"d"} onClick={() => {
+                            userInInput(item.name);
+                            recipientId(item.id);
+                        }}>{item.name}</div>
+                    </li>
+                ))}
             </ul>
         </li>
     );

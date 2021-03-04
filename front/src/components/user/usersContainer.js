@@ -10,7 +10,6 @@ const UsersContainer = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
     let history = useHistory();
-    console.log(history);
     const logoutUser = () => {
         deleteToken();
         console.log('onClickButtonLogin', history.push)

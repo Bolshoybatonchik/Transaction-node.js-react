@@ -28,7 +28,7 @@ const RegisterPage = (props) => {
     const email = formik.values.email;
     const password = formik.values.password;
 
-    const onClickButtonRegistration = async () => {
+    const onClickRegistration = async () => {
         if (username && email && password && !formik.errors.password && !formik.errors.username && !formik.errors.email) {
             const result = {
                 username: username,
@@ -89,7 +89,7 @@ const RegisterPage = (props) => {
                     {formik.touched.email && formik.errors.email ? (
                         <div className={"Error_Register_Email"}>{formik.errors.email}</div>
                     ) : null}
-                    <button type="submit" className={"Register_Button"} onClick={onClickButtonRegistration}>Submit
+                    <button type="submit" className={"Register_Button"} onClick={onClickRegistration}>Submit
                     </button>
                 </form>
             </div>
