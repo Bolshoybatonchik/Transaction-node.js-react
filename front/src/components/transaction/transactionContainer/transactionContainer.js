@@ -20,7 +20,7 @@ const MoneyTransactionContainer = (props) => {
         dispatch(getListUsers(text))
     }, [])
 
-    const getUserData = useCallback((text) => {
+    const dispatchGetUserInfoData = useCallback((text) => {
         dispatch(getUserInfoData())
     }, [])
 
@@ -31,7 +31,7 @@ const MoneyTransactionContainer = (props) => {
     return (
         <MoneyTransaction
             getAllTransactions={dispatchGetAllTransactions}
-            getUserData={getUserData}
+            getUserData={dispatchGetUserInfoData}
             createTransaction={dispatchCreateTransaction}
             getListUsers={dispatchGetListUsers}
             transactionList={transactionList}

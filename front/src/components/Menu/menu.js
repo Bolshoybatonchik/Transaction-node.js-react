@@ -15,13 +15,14 @@ const Menu = (props) => {
             <input type={'text'} className={"Transaction_Input"} placeholder="recipient" onChange={onChange}
                    value={name}/>
             <ul className="m-menu__list">
-                {usersList.map(item => (
+               {usersList.map(item => (
                     <li className={"m-menu__link"} key={item.id}>
                         <div className={"d"} onClick={() => {
                             userName(item.name);
                             recipientId(item.id);
                         }}>{item.name}</div>
                     </li>
+
                 ))}
             </ul>
         </li>

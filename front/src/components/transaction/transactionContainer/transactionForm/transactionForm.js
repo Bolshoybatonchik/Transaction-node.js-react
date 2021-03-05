@@ -9,21 +9,47 @@ import {createTransaction, getAllTransactions, getListUsers} from "components/tr
 import {getUserInfoData} from "components/user/thunk";
 
 
-const MoneyTransaction = ({
-                              getUserData,
-                              getAllTransactions,
-                              transactionList,
-                              getListUsers,
-                              usersList,
-                              balance,
-                              createTransaction,
-                              transactionError,
-                              correspondentId
-                          }) => {
+const MoneyTransaction = () => {
     const [amount, setAmount] = useState();
     const [name, setName] = useState();
     const [recipientId, setRecipientId] = useState()
 
+    const dispatch = useDispatch();
+    const balance = useSelector((state) => state.user.user.balance);
+    const usersList = useSelector((state) => state?.transaction?.usersList);
+    const correspondentId = useSelector((state) => state.user.user.id);
+    const transactionList = useSelector((state) => state.transaction.transactionList);
+    const transactionError = useSelector((state) => state.transaction.transactionError);
+
+    const dispatchGetAllTransactions = () => {
+        dispatch(getAllTransactions())
+    }
+
+    const dispatchGetListUsers = (text) => {
+        dispatch(getListUsers(text))
+    }
+
+    // const dispatchGetAllTransactions = useCallback(() => {
+    //     dispatch(getAllTransactions())
+    // }, [])
+    // const dispatchGetUserInfoData = useCallback((text) => {
+    //     dispatch(getUserInfoData())
+    // }, [])
+    //
+    // const dispatchCreateTransaction = useCallback((data) => {
+    //     dispatch(createTransaction(data))
+    // }, [])
+    //
+    //
+
+    const dispatchGetUserInfoData = () => {
+        dispatch(getUserInfoData())
+    }
+
+
+    const dispatchCreateTransaction = (data) => {
+        dispatch(createTransaction(data))
+    }
 
     const dataTransaction = {
         name,
@@ -36,11 +62,6 @@ const MoneyTransaction = ({
         setAmount(event.target.value);
     }
 
-    const debouncedSave = useCallback(
-        debounce(value => getListUsers(value), 300),
-        [],
-    );
-
 
     // const getRecipient = ({target}) => {
     //     const {value} = target;
@@ -50,20 +71,17 @@ const MoneyTransaction = ({
     //
     // }
 
+
     const onInputChange = ({target}) => {
         setName(target.value);
         setRecipientId(null);
     }
 
-    useEffect(() => {
-            debouncedSave()
-        },
+    useEffect(
+        debounce(
+            () => dispatchGetListUsers(name), 350),
         [name])
 
-    // useEffect(
-    //         debounce(
-    //             () => getListUsers(name), 300),
-    //     [name])
 
     useEffect(() => {
         setButtonState();
@@ -71,13 +89,13 @@ const MoneyTransaction = ({
 
     useEffect(
         () => {
-            getAllTransactions()
+            dispatchGetAllTransactions()
         }, [])
 
-    const requestTransaction = async (data) => {
-        await createTransaction(data);
-        getUserData();
-        await getAllTransactions();
+    const requestTransaction = (data) => {
+         dispatchCreateTransaction(data);
+         dispatchGetUserInfoData();
+         dispatchGetAllTransactions();
     }
 
     const onRetry = async (item, isRetry, correspondentId) => {
@@ -117,7 +135,6 @@ const MoneyTransaction = ({
     return (
         <div className={"Transaction_Page"}>
             <div className={"Transaction_Form"}>
-                {/*<TransactionError transactionError={transactionError}/>*/}
                 <>
                     {transactionError ? (
                         <div className={"transactionError"}>Recipient not found check the correctness of the entered
@@ -204,3 +221,16 @@ export default MoneyTransaction;
 //         </form>
 //     );
 // };
+
+
+// {
+//     getUserData,
+//         getAllTransactions,
+//         transactionList,
+//         getListUsers,
+//         usersList,
+//         balance,
+//         createTransaction,
+//         transactionError,
+//         correspondentId
+// }
