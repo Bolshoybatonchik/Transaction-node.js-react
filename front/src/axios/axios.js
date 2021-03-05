@@ -14,7 +14,3 @@ instance.interceptors.request.use((request) => {
 });
 
 export default instance;
-
-
-// A
-// 'http://193.124.114.46:3001/',

@@ -1,4 +1,3 @@
-// import axios from '../../../axios/axios';
 import {getError, setListUsers, setTransactionData} from "components/transaction/transactionContainer/reducer";
 import axios from "axios/axios";
 

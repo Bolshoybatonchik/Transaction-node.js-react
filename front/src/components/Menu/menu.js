@@ -3,7 +3,7 @@ import onClickOutside from "react-onclickoutside";
 import "./Menu.css";
 
 const Menu = (props) => {
-    const {onChange, name, userInInput, usersList, recipientId} = props;
+    const {onChange, name, userName, usersList, recipientId} = props;
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
@@ -18,7 +18,7 @@ const Menu = (props) => {
                 {usersList.map(item => (
                     <li className={"m-menu__link"} key={item.id}>
                         <div className={"d"} onClick={() => {
-                            userInInput(item.name);
+                            userName(item.name);
                             recipientId(item.id);
                         }}>{item.name}</div>
                     </li>

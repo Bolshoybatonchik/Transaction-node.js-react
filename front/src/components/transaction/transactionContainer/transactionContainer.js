@@ -12,28 +12,28 @@ const MoneyTransactionContainer = (props) => {
     const transactionList = useSelector((state) => state.transaction.transactionList);
     const transactionError = useSelector((state) => state.transaction.transactionError);
 
-    const getAllTr = useCallback(() => {
+    const dispatchGetAllTransactions = useCallback(() => {
         dispatch(getAllTransactions())
     }, [])
 
-    const getListUs = useCallback((text) => {
+    const dispatchGetListUsers = useCallback((text) => {
         dispatch(getListUsers(text))
     }, [])
 
-    const getUserInfo = useCallback((text) => {
+    const getUserData = useCallback((text) => {
         dispatch(getUserInfoData())
     }, [])
 
-    const createTrans = useCallback((name, amount,recipientId,correspondentId) => {
+    const dispatchCreateTransaction = useCallback((name, amount,recipientId,correspondentId) => {
         dispatch(createTransaction(name, amount,recipientId,correspondentId))
     }, [])
 
     return (
         <MoneyTransaction
-            getAllTransactions={getAllTr}
-            getUserInfoData={getUserInfo}
-            createTransaction={createTrans}
-            getListUsers={getListUs}
+            getAllTransactions={dispatchGetAllTransactions}
+            getUserData={getUserData}
+            createTransaction={dispatchCreateTransaction}
+            getListUsers={dispatchGetListUsers}
             transactionList={transactionList}
             usersList={usersList}
             balance={balance}

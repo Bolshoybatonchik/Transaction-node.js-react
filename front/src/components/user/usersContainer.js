@@ -12,7 +12,6 @@ const UsersContainer = () => {
     let history = useHistory();
     const logoutUser = () => {
         deleteToken();
-        console.log('onClickButtonLogin', history.push)
         history.push('/login')
     }
     const getUserInfo = useCallback(() => {

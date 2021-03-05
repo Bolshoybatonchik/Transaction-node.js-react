@@ -1,6 +1,6 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {useFormik} from 'formik';
-import 'components/login/login.css'
+import 'components/login/loginForm.css'
 import {NavLink, useHistory, withRouter} from "react-router-dom";
 import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
@@ -10,9 +10,10 @@ const LoginForm = (props) => {
     // const loginError = useSelector((state) => state.auth.user);
     let history = useHistory();
     const dispatch = useDispatch();
-    const login =(email, password) => {
+    const login = (email, password) => {
         dispatch(loginUsers(email, password))
     }
+
     const formik = useFormik({
         initialValues: {
             email: '',

@@ -4,14 +4,13 @@ import debounce from 'lodash.debounce'
 import {useFormik} from 'formik';
 import Menu from "components/Menu/menu";
 import './transactionForm.css'
-import {TransactionError} from "./transactionError/transactionError";
 import TransactionList from "./transactonList/transactionList";
 import {createTransaction, getAllTransactions, getListUsers} from "components/transaction/transactionContainer/thunk";
 import {getUserInfoData} from "components/user/thunk";
 
 
 const MoneyTransaction = ({
-                              getUserInfoData,
+                              getUserData,
                               getAllTransactions,
                               transactionList,
                               getListUsers,
@@ -23,7 +22,6 @@ const MoneyTransaction = ({
                           }) => {
     const [amount, setAmount] = useState();
     const [name, setName] = useState();
-    const [isShowModal, setShowModal] = useState(false);
     const [recipientId, setRecipientId] = useState()
 
 
@@ -38,10 +36,10 @@ const MoneyTransaction = ({
         setAmount(event.target.value);
     }
 
-    // const debouncedSave = useCallback(
-    //     debounce(value => getListUsers(value), 300),
-    //     [],
-    // );
+    const debouncedSave = useCallback(
+        debounce(value => getListUsers(value), 300),
+        [],
+    );
 
 
     // const getRecipient = ({target}) => {
@@ -57,9 +55,15 @@ const MoneyTransaction = ({
         setRecipientId(null);
     }
 
-    useEffect(debounce(
-        () => getListUsers(name), 300),
+    useEffect(() => {
+            debouncedSave()
+        },
         [name])
+
+    // useEffect(
+    //         debounce(
+    //             () => getListUsers(name), 300),
+    //     [name])
 
     useEffect(() => {
         setButtonState();
@@ -72,7 +76,7 @@ const MoneyTransaction = ({
 
     const requestTransaction = async (data) => {
         await createTransaction(data);
-        getUserInfoData();
+        getUserData();
         await getAllTransactions();
     }
 
@@ -87,7 +91,7 @@ const MoneyTransaction = ({
         await requestTransaction(userData);
     };
 
-    const userInInput = (userListName) => {
+    const userName = (userListName) => {
         setName(userListName);
     }
 
@@ -113,13 +117,25 @@ const MoneyTransaction = ({
     return (
         <div className={"Transaction_Page"}>
             <div className={"Transaction_Form"}>
-                <TransactionError transactionError={transactionError}/>
-                <Menu name={name} userInInput={userInInput}
-                      usersList={usersList} recipientId={setRecipientId} onChange={onInputChange}/>
+                {/*<TransactionError transactionError={transactionError}/>*/}
+                <>
+                    {transactionError ? (
+                        <div className={"transactionError"}>Recipient not found check the correctness of the entered
+                            data</div>
+                    ) : <div></div>
+                    }
+                </>
+                <Menu name={name}
+                      userName={userName}
+                      usersList={usersList}
+                      recipientId={setRecipientId}
+                      onChange={onInputChange}/>
                 <input className={"Transaction_Input"} placeholder="Sum" type="number" onChange={handleAmountChange}
                        value={amount}/>
-                <button className={changeButton()} disabled={setButtonState()}
-                        onClick={() => requestTransaction(dataTransaction)}>AMOUNT NOW
+                <button className={changeButton()}
+                        disabled={setButtonState()}
+                        onClick={() => requestTransaction(dataTransaction)}
+                >AMOUNT NOW
                 </button>
             </div>
             <TransactionList transactionList={transactionList} correspondentId={correspondentId} onRetry={onRetry}/>
@@ -128,31 +144,6 @@ const MoneyTransaction = ({
 }
 
 export default MoneyTransaction;
-
-
-// const dispatch = useDispatch();
-// const balance = useSelector((state) =>  state.user.user.balance);
-// const usersList = useSelector((state) => state?.transaction?.usersList);
-// const correspondentId = useSelector((state) =>  state.user.user.id);
-// const transactionList = useSelector((state) => state.transaction.transactionList);
-// const transactionError = useSelector((state) => state.transaction.transactionError);
-//
-// const getAllTr = useCallback(() => {
-//     dispatch(getAllTransactions())
-// }, [])
-//
-// const getListUs = useCallback((text) => {
-//     dispatch(getListUsers(text))
-// }, [])
-//
-// const getUserInfo = useCallback((text) => {
-//     dispatch(getUserInfoData())
-// }, [])
-//
-// const createTrans = useCallback((name, amount,recipientId,correspondentId) => {
-//     dispatch(createTransaction(name, amount,recipientId,correspondentId))
-// }, [])
-//
 
 
 // New

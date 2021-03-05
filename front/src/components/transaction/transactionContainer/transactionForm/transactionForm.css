@@ -205,3 +205,8 @@
         font-size: 11px;
     }
 }
+
+.transactionError {
+    position: absolute;
+    color: red;
+}

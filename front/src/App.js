@@ -7,7 +7,8 @@ import store from "store/store";
 import renderPrivateRoute from "components/privetRoute/privetRoute";
 import renderPublicRoute from "components/publicRoute/publicRoute";
 import RegisterPage from "components/register/registerPage";
-import LoginForm from "components/login/login";
+import LoginForm from "components/login/loginForm";
+
 
 
 function App() {
