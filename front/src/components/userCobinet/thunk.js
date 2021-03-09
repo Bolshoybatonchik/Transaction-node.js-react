@@ -1,5 +1,5 @@
 import axios from 'axios/axios';
-import {userData} from "components/user/reducer";
+import {userData} from "components/userCobinet/reducer";
 
 export const getUserInfoData = () => async (dispatch) => {
     try {

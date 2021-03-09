@@ -2,11 +2,11 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import debounce from 'lodash.debounce'
 import {useFormik} from 'formik';
-import Menu from "components/Menu/menu";
 import './transactionForm.css'
 import TransactionList from "./transactonList/transactionList";
 import {createTransaction, getAllTransactions, getListUsers} from "components/transaction/transactionContainer/thunk";
-import {getUserInfoData} from "components/user/thunk";
+import {getUserInfoData} from "components/userCobinet/thunk";
+import Menu from "components/menu/menu";
 
 
 const MoneyTransaction = () => {
@@ -21,34 +21,21 @@ const MoneyTransaction = () => {
     const transactionList = useSelector((state) => state.transaction.transactionList);
     const transactionError = useSelector((state) => state.transaction.transactionError);
 
-    const dispatchGetAllTransactions = () => {
-        dispatch(getAllTransactions())
+    const dispatchGetAllTransactions = async () => {
+        await dispatch(getAllTransactions())
     }
 
-    const dispatchGetListUsers = (text) => {
-        dispatch(getListUsers(text))
+    const dispatchGetListUsers = async (text) => {
+        await dispatch(getListUsers(text))
     }
 
-    // const dispatchGetAllTransactions = useCallback(() => {
-    //     dispatch(getAllTransactions())
-    // }, [])
-    // const dispatchGetUserInfoData = useCallback((text) => {
-    //     dispatch(getUserInfoData())
-    // }, [])
-    //
-    // const dispatchCreateTransaction = useCallback((data) => {
-    //     dispatch(createTransaction(data))
-    // }, [])
-    //
-    //
-
-    const dispatchGetUserInfoData = () => {
-        dispatch(getUserInfoData())
+    const dispatchGetUserInfoData = async () => {
+        await dispatch(getUserInfoData())
     }
 
 
-    const dispatchCreateTransaction = (data) => {
-        dispatch(createTransaction(data))
+    const dispatchCreateTransaction = async (data) => {
+        await dispatch(createTransaction(data))
     }
 
     const dataTransaction = {
@@ -61,16 +48,6 @@ const MoneyTransaction = () => {
     const handleAmountChange = (event) => {
         setAmount(event.target.value);
     }
-
-
-    // const getRecipient = ({target}) => {
-    //     const {value} = target;
-    //     if (!isShowModal) {
-    //         setShowModal(true)
-    //     }
-    //
-    // }
-
 
     const onInputChange = ({target}) => {
         setName(target.value);
@@ -92,10 +69,10 @@ const MoneyTransaction = () => {
             dispatchGetAllTransactions()
         }, [])
 
-    const requestTransaction = (data) => {
-         dispatchCreateTransaction(data);
-         dispatchGetUserInfoData();
-         dispatchGetAllTransactions();
+    const requestTransaction = async (data) => {
+        await dispatchCreateTransaction(data);
+        await dispatchGetUserInfoData();
+        await dispatchGetAllTransactions();
     }
 
     const onRetry = async (item, isRetry, correspondentId) => {
@@ -131,7 +108,6 @@ const MoneyTransaction = () => {
 
     const changeButton = () => setButtonState() ? "Transaction_Bt" : "Transaction_Bt_Active";
 
-
     return (
         <div className={"Transaction_Page"}>
             <div className={"Transaction_Form"}>
@@ -139,7 +115,7 @@ const MoneyTransaction = () => {
                     {transactionError ? (
                         <div className={"transactionError"}>Recipient not found check the correctness of the entered
                             data</div>
-                    ) : <div></div>
+                    ) : <div />
                     }
                 </>
                 <Menu name={name}

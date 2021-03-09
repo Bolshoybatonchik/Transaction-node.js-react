@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
-import "components/user/userCabinet.css"
-// import MoneyTransactionContainer from "components/transaction/transactionContainer/transactionContainer";
+import "components/userCobinet/userCabinet.css"
 import MoneyTransaction from "components/transaction/transactionContainer/transactionForm/transactionForm";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {deleteToken} from "localStorege/localStorege";
-import {getUserInfoData} from "components/user/thunk";
+import {getUserInfoData} from "components/userCobinet/thunk";
+import userInformation from "components/userInformation/userInformation";
 
 
 
@@ -28,6 +28,7 @@ const UsersCabinet = () => {
                 <div className={"Cap"}/>
                 <div className={"Wrapper_heading"}><h1 className={"heading"}>KONG TRANSACTION</h1>
                     <h2>fast and convenient translation application</h2></div>
+                {/*<userInformation user={user} logoutUser={logoutUser}/>*/}
                 <div className={"UsersCabinet"}>
                     <nav className={"UsersCabinet_UserInform"}>
                         <div>{user.name}</div>

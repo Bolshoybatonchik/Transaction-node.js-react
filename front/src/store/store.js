@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit'
-import userReducer from "components/user/reducer";
+import userReducer from "components/userCobinet/reducer";
 import transactionReducer from "components/transaction/transactionContainer/reducer";
 
 

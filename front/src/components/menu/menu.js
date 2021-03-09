@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import onClickOutside from "react-onclickoutside";
-import "./Menu.css";
+import "./menu.css";
 
 const Menu = (props) => {
     const {onChange, name, userName, usersList, recipientId} = props;
