@@ -1,1 +1,0 @@
-export const SUBMIT_USER_LOGIN = 'SUBMIT_USER_LOGIN';

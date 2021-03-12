@@ -38,7 +38,7 @@ module.exports = {
                 return
             }
             res.status(400).json({
-                message: "Data does not match, please try again."
+                message: "It looks like you entered your email or password incorrectly. Want to try again?"
             })
         } catch (e) {
             res.status(400).json({
