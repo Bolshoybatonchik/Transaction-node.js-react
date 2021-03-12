@@ -25,7 +25,11 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: true,
       }
     },
-    balance: DataTypes.INTEGER
+    balance:{type: DataTypes.INTEGER,
+      validate:{
+        min: 0,
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',

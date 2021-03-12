@@ -5,12 +5,14 @@ import axios from "axios/axios";
 export const createTransaction = ({name, amount, recipientId, correspondentId}) => async (dispatch) => {
     try {
         const response = await axios.post('protected/transactions', {name, amount, recipientId, correspondentId});
+        console.log("createTransaction",response)
         dispatch(
             getError(false)
         )
     } catch (error) {
+        console.log(error.response.data.message)
         dispatch(
-            getError(true)
+            getError(error.response.data.message)
         )
     }
 };
@@ -32,3 +34,5 @@ export const getListUsers = (text) => async (dispatch) => {
         setListUsers(response.data),
     );
 };
+
+

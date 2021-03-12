@@ -1,5 +1,6 @@
 import {Redirect} from "react-router-dom";
-import {getToken} from "localStorege/localStorege";
+import {getToken} from "utils/localStorage";
+
 
 const renderPrivateRoute = (Component) => (params)  => {
     const token = getToken();

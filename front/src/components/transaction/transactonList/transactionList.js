@@ -1,4 +1,4 @@
-import 'components/transaction/transactionContainer/transactionForm/transactionForm.css';
+import 'components/transaction/transactionForm;;
 import React from 'react';
 
 

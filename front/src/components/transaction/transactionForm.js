@@ -2,9 +2,9 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import debounce from 'lodash.debounce'
 import {useFormik} from 'formik';
-import './transactionForm.css'
-import TransactionList from "./transactonList/transactionList";
-import {createTransaction, getAllTransactions, getListUsers} from "components/transaction/transactionContainer/thunk";
+import 'components/transaction/transactionForm/transactionForm.css'
+import TransactionList from "components/transaction/transactionForm/transactonList/transactionList";
+import {createTransaction, getAllTransactions, getListUsers} from "components/transaction/thunk";
 import {getUserInfoData} from "components/userCobinet/thunk";
 import Menu from "components/menu/menu";
 
@@ -113,8 +113,7 @@ const MoneyTransaction = () => {
             <div className={"Transaction_Form"}>
                 <>
                     {transactionError ? (
-                        <div className={"transactionError"}>Recipient not found check the correctness of the entered
-                            data</div>
+                        <div className={"transactionError"}>{transactionError}</div>
                     ) : <div />
                     }
                 </>
