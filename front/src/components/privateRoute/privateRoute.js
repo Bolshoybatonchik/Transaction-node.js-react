@@ -3,6 +3,8 @@ import {getToken} from "utils/localStorage";
 
 
 const renderPrivateRoute = (Component) => (params)  => {
+
+    console.log('@@@renderPrivateRoute======.>>>>>>>>>>>1',params);
     const token = getToken();
     if(token) {
         return <Component {...params}/>

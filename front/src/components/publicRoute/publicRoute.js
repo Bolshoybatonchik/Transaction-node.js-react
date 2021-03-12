@@ -1,8 +1,8 @@
 import {Redirect} from "react-router-dom";
-import {getToken} from "localStorege/localStorege";
+import {getToken} from "utils/localStorage";
+
 
 const renderPublicRoute = (Component) => (params)  => {
-
     const token = getToken();
     if(!token) {
         return <Component {...params}/>

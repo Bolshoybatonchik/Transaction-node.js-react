@@ -1,18 +1,20 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import debounce from 'lodash.debounce'
-import {useFormik} from 'formik';
-import 'components/transaction/transactionForm/transactionForm.css'
-import TransactionList from "components/transaction/transactionForm/transactonList/transactionList";
-import {createTransaction, getAllTransactions, getListUsers} from "components/transaction/thunk";
-import {getUserInfoData} from "components/userCobinet/thunk";
+import 'components/transaction/transactionForm.css'
+import TransactionList from "components/transaction/transactonList/transactionList";
+import {getAllTransactions, getListUsers, fetchTransaction} from "components/transaction/thunk";
 import Menu from "components/menu/menu";
+import {setLoading} from "components/transaction/reducer";
 
 
 const MoneyTransaction = () => {
     const [amount, setAmount] = useState();
     const [name, setName] = useState();
-    const [recipientId, setRecipientId] = useState()
+    const [recipientId, setRecipientId] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+    const todosPerPage = 5;
+
 
     const dispatch = useDispatch();
     const balance = useSelector((state) => state.user.user.balance);
@@ -20,23 +22,48 @@ const MoneyTransaction = () => {
     const correspondentId = useSelector((state) => state.user.user.id);
     const transactionList = useSelector((state) => state.transaction.transactionList);
     const transactionError = useSelector((state) => state.transaction.transactionError);
+    const isLoading = useSelector((state) => state.transaction.isLoading);
 
-    const dispatchGetAllTransactions = async () => {
-        await dispatch(getAllTransactions())
+
+    const dispatchGetAllTransactions = () => {
+        dispatch(getAllTransactions())
     }
 
     const dispatchGetListUsers = async (text) => {
         await dispatch(getListUsers(text))
     }
 
-    const dispatchGetUserInfoData = async () => {
-        await dispatch(getUserInfoData())
+    const dispatchSetLoading = (data) => {
+        dispatch(setLoading(data))
     }
 
-
-    const dispatchCreateTransaction = async (data) => {
-        await dispatch(createTransaction(data))
+    const handleClick = (number) => {
+        setCurrentPage(number)
     }
+
+    const renderList = () => {
+        const indexOfLastPage = currentPage * todosPerPage;
+        const indexOfFirstPage = indexOfLastPage - todosPerPage;
+        return transactionList.slice(indexOfFirstPage, indexOfLastPage)
+    }
+
+    const renderPageNumbers = () => {
+        const pageNumber = [];
+        if (transactionList.length > 5) {
+            for (let i = 1; i <= Math.ceil(transactionList.length / todosPerPage); i++) {
+                pageNumber.push(i)
+            }
+            return (<ul className="Page_List">
+                {pageNumber.map(number => {
+                    return (
+                        <li className="Page_List_Item" id={number} key={number}
+                            onClick={() => handleClick(number)}> {number}</li>
+                    );
+                })}
+            </ul>)
+        }
+    }
+
 
     const dataTransaction = {
         name,
@@ -69,10 +96,14 @@ const MoneyTransaction = () => {
             dispatchGetAllTransactions()
         }, [])
 
-    const requestTransaction = async (data) => {
-        await dispatchCreateTransaction(data);
-        await dispatchGetUserInfoData();
-        await dispatchGetAllTransactions();
+    useEffect(
+        () => {
+            dispatchSetLoading(false)
+        }, [transactionList])
+
+
+    const requestTransaction = (data) => {
+        dispatch(fetchTransaction(data));
     }
 
     const onRetry = async (item, isRetry, correspondentId) => {
@@ -83,7 +114,7 @@ const MoneyTransaction = () => {
             name,
             correspondentId
         }
-        await requestTransaction(userData);
+        requestTransaction(userData);
     };
 
     const userName = (userListName) => {
@@ -100,11 +131,20 @@ const MoneyTransaction = () => {
         if (!amount) {
             return true
         }
+        if (isLoading) {
+            return true
+        }
         if (amount <= 0 || amount > balance) {
             return true
         }
         return name === '';
     };
+
+    const setRetryButtonState = () => {
+        if (balance <= 0) {
+            return true
+        }
+    }
 
     const changeButton = () => setButtonState() ? "Transaction_Bt" : "Transaction_Bt_Active";
 
@@ -114,7 +154,7 @@ const MoneyTransaction = () => {
                 <>
                     {transactionError ? (
                         <div className={"transactionError"}>{transactionError}</div>
-                    ) : <div />
+                    ) : <div/>
                     }
                 </>
                 <Menu name={name}
@@ -130,82 +170,16 @@ const MoneyTransaction = () => {
                 >AMOUNT NOW
                 </button>
             </div>
-            <TransactionList transactionList={transactionList} correspondentId={correspondentId} onRetry={onRetry}/>
+            <TransactionList
+                setButtonState={setRetryButtonState}
+                transactionList={renderList()}
+                isLoading={isLoading}
+                correspondentId={correspondentId}
+                onRetry={onRetry}/>
+            {renderPageNumbers()}
         </div>
     )
 }
 
 export default MoneyTransaction;
 
-
-// New
-// const SignupForm = () => {
-//     const formik = useFormik({
-//         initialValues: {
-//             name: '',
-//             amount: '',
-//             recipientId: null,
-//             correspondentId: null
-//         },
-//     });
-//
-//     const dataTransaction = {
-//         name: formik.values.name,
-//         amount: formik.values.amount,
-//         recipientId: formik.values.recipientId,
-//         correspondentId: formik.values.correspondentId,
-//     }
-//     console.log()
-//
-//     return (
-//         <form onSubmit={formik.handleSubmit}>
-//             <div className={"Transaction_Page"}>
-//                 <div className={"Transaction_Form"}>
-//                     <TransactionError transactionError={transactionError}/>
-//                     <Menu onChange={onInputChange}
-//                           name={name} showModal={showModal}
-//                           userInInput={userInInput}
-//                           usersList={usersList}
-//                           RecipientId={setRecipientId}/>
-//                     {/*<input*/}
-//                     {/*    className={"Transaction_Input"}*/}
-//                     {/*    placeholder="Sum" type="number"*/}
-//                     {/*    onChange={formik.handleChange}*/}
-//                     {/*    value={amount}*/}
-//                     {/*/>*/}
-//                     <input
-//                         className={"Transaction_Input"}
-//                         id="amount"
-//                         name="amount"
-//                         type="number"
-//                         onChange={formik.handleChange}
-//                         value={amount}
-//                         onBlur={formik.handleBlur}
-//                         placeholder={"Sum"}
-//                     />
-//                     <button
-//                         className={changeButton()}
-//                         disabled={setButtonState()}
-//                         onClick={() => requestTransaction(dataTransaction)}>
-//                         AMOUNT NOW
-//                     </button>
-//                 </div>
-//                 <TransactionList transactionList={transactionList} correspondentId={correspondentId}
-//                                  onRetry={onRetry}/>
-//             </div>
-//         </form>
-//     );
-// };
-
-
-// {
-//     getUserData,
-//         getAllTransactions,
-//         transactionList,
-//         getListUsers,
-//         usersList,
-//         balance,
-//         createTransaction,
-//         transactionError,
-//         correspondentId
-// }

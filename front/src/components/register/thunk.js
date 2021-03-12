@@ -1,6 +1,5 @@
-import axios from "axios/axios";
-import {setToken} from "localStorege/localStorege";
-
+import axios from "utils/axios";
+import {setToken} from "utils/localStorage";
 
 export const registerUser = ({username, password, email}) => async (dispatch) => {
     try {

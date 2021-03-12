@@ -6,7 +6,8 @@ export const transactionSlice = createSlice({
     initialState: {
         transactionList: [],
         usersList: [],
-        transactionError: false
+        transactionError: false,
+        isLoading: false,
     },
     reducers: {
         setTransactionData: (state, action) => {
@@ -17,10 +18,13 @@ export const transactionSlice = createSlice({
         },
         getError: (state, action) => {
             state.transactionError = action.payload
+        },
+        setLoading: (state, action) => {
+            state.isLoading = action.payload
         }
     }
 })
 
-export const {setListUsers, setTransactionData, getError} = transactionSlice.actions
+export const {setListUsers, setTransactionData, getError, setLoading} = transactionSlice.actions
 
 export default transactionSlice.reducer

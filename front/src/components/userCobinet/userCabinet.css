@@ -3,7 +3,7 @@
     height: 600px;
     background-color: black;
     transform: skewY(-5deg) translateY(-100px);
-    background-image: url("../../asets/image/01.png");
+    background-image: url("../../asets/kong.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
