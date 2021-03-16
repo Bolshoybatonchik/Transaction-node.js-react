@@ -4,11 +4,13 @@ import * as Yup from "yup";
 import {useFormik} from 'formik';
 import 'components/register/registerPage.css'
 import {useDispatch} from "react-redux";
+import {useHistory} from 'react-router-dom'
 import {registerUser} from "components/register/thunk";
 
 const RegisterPage = (props) => {
     const dispatch = useDispatch();
-    const register  = (data) => dispatch(registerUser(data))
+    const history = useHistory();
+    const register = (data) => dispatch(registerUser(data))
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -38,7 +40,8 @@ const RegisterPage = (props) => {
                 password: password,
                 email: email,
             }
-            register(result);
+           await register(result);
+            history.push('/');
         }
     }
 

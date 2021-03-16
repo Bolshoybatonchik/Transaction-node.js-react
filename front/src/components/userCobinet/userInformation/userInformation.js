@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const userInformation = (props) => {
+const UserInformation = (props) => {
     const {user,logoutUser} = props;
     return (
         <div className={"UsersCabinet"}>
@@ -23,4 +23,4 @@ const userInformation = (props) => {
     )
 }
 
-export default userInformation;
+export default UserInformation;

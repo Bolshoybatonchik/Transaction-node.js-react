@@ -1,17 +1,19 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import 'components/login/loginForm.css'
 import {NavLink, useHistory, withRouter} from "react-router-dom";
 import * as Yup from 'yup';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {loginUsers} from "components/login/thunk";
+import 'components/login/loginForm.css'
 
 const LoginForm = (props) => {
-    // const loginError = useSelector((state) => state.auth.user);
     let history = useHistory();
     const dispatch = useDispatch();
-    const login = (email, password) => {
-        dispatch(loginUsers(email, password))
+    const loginError = useSelector((state) => state.login.login);
+
+
+    const login = async (email, password) => {
+        await dispatch(loginUsers(email, password));
     }
 
     const formik = useFormik({
@@ -27,19 +29,14 @@ const LoginForm = (props) => {
             email: Yup.string().email('Invalid email address').required('Obligatory field'),
         }),
     });
+
     const email = formik.values.email;
     const password = formik.values.password;
 
-    // const getLoginError = () => {
-    //         setLoginError(true)
-    // }
-
     const onClickButtonLogin = async () => {
         if (email && password && !formik.errors.password) {
-            login(email, password);
-            console.log(history);
+            await login(email, password);
             history.push('/');
-            // getLoginError();
         }
     }
 
@@ -62,13 +59,12 @@ const LoginForm = (props) => {
                         onBlur={formik.handleBlur}
                         placeholder={"Email Address"}
                     />
-                    {/*{loginError ? (*/}
-                    {/*    <div className={"Error_Login"}>It looks like you entered your email or password incorrectly.*/}
-                    {/*        Want to try again?</div>*/}
-                    {/*) : null}*/}
-                    {/*{formik.touched.email && formik.errors.email ? (*/}
-                    {/*    <div className={"Error_Email"}>{formik.errors.email}</div>*/}
-                    {/*) : null}*/}
+                    {loginError ? (
+                        <div className={"Error_Login"}>{loginError}</div>
+                    ) : null}
+                    {formik.touched.email && formik.errors.email ? (
+                        <div className={"Error_Email"}>{formik.errors.email}</div>
+                    ) : null}
                     <input
                         className={"Login_Input"}
                         id="password"

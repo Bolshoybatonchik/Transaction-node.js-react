@@ -27,7 +27,7 @@ Then you need to set data base configuration.
     This is necessary for the correct settings.
  2) You only need to create the data base, and change the fields in the file.
  
- ```json
+ ```json 
 JWT_SECRET = secret
 
 # Database
@@ -66,5 +66,7 @@ and then launch the app with
 ```
 npm start
 ```
+
+
 
 
